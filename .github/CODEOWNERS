@@ -14,3 +14,6 @@
 # https://github.com/orgs/SpringTree/teams/security-officers
 /SECURITY-INTAKE.md @SpringTree/security-officers
 
+# The disclosure policy is published to every SpringTree repository that lacks
+# its own SECURITY.md, so its wording is the security officers' to approve.
+/SECURITY.md @SpringTree/security-officers
