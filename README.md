@@ -1,15 +1,49 @@
-# SpringTree organisation defaults
+# YOUR_REPO_NAME_HERE
 
-GitHub applies the files in this repository as defaults to every repository in
-the SpringTree organisation that does not carry its own copy.
+## :evergreen_tree: Purpose
 
-- `.github/pull_request_template.md` — the pull request template. It asks the
-  three things our ISMS wants to know about every change: what and why, whether
-  it was read and tested, and whether it touches the project's security intake.
-  Rules behind it: the Secure-developmentstandaard (§5.2) and the procedure
-  Informatiebeveiliging in projectmanagement in the
-  [ISMS repository](https://github.com/SpringTree/isms).
+Give a brief description of what the code in the repository does or is for
 
-A repository that needs to deviate adds its own `.github/pull_request_template.md`;
-that one wins over this default. `CODEOWNERS` cannot be set here and stays per
-repository.
+## :seedling: Getting started
+
+Instructions for how to consume (library) or use (app) this package.
+
+
+## :hammer: Development
+
+Include all instructions a (new) developer needs to perform to get going developing for this project.
+Add info about specific tools if needed.
+
+As an example
+
+Run:
+
+```bash
+# Install dependencies
+npm install
+
+# Start serving the app
+npm run dev
+```
+
+> NOTE: Add things to take special not of if needed
+
+### :cool: Technology stack
+
+* typescript
+* swift
+* node (v24)
+
+### :twisted_rightwards_arrows: Branch strategy and protection
+
+Indicate the name of the `main` branch and how branch protection is setup.
+Mention if special practices like git flow are in effect.
+Below is the most common text you will see here:
+
+The `main` branch has protection enabled against direct pushes.
+All changes need to be done through a reviewed pull request.
+
+## :up: Deploying
+
+Describe how any package is published or how the app is deployed.
+This should almost always be done using CI (GitHub actions, Bitrise, etc.)
