@@ -1,0 +1,16 @@
+# CODEOWNERS
+#
+# Owners listed here are automatically requested as reviewers on pull requests
+# that touch the matching paths. Enforcement of their approval requires the
+# "Require review from Code Owners" branch protection rule on the default branch.
+#
+# Matching rules:
+# - Syntax follows .gitignore patterns; the LAST matching line wins.
+# - Owners must have write access to this repository, teams are written as
+#   @<organization>/<team-slug>.
+
+# The security intake questionnaire originates from our ISMS, so any change to
+# it must be signed off by the security officers.
+# https://github.com/orgs/SpringTree/teams/security-officers
+/SECURITY-INTAKE.md @SpringTree/security-officers
+
