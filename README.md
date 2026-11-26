@@ -51,8 +51,9 @@ Each may live in the repository root, in `docs/`, or in `.github/`.
 
 | Path                             | Propagates? | Notes                                                      |
 | -------------------------------- | ----------- | ---------------------------------------------------------- |
-| `.github/CODEOWNERS`             | No          | Applies to this repository only. Assigns the security officers as reviewers for the two security documents. |
+| `.github/CODEOWNERS`             | No          | Applies to this repository only. Assigns the security officers as reviewers for the two security documents, the compliance workflow and CODEOWNERS itself. |
 | `.github/pull_request_template.md` | Yes       | The default pull request template for every SpringTree repository. |
+| `.github/workflows/compliance.yml` | No        | Runs the shared [supply-chain gates][ci-workflows] against this repository. |
 | `LICENSE.md`                     | No          | Proprietary notice, meant to be **copied** into a project repository. |
 | `SECURITY-INTAKE.md`             | No          | ISMS security intake questionnaire, meant to be **copied** into a project repository at project start. |
 | `SECURITY.md`                    | Yes         | The default security policy. Vulnerability reports go to <security@springtree.nl>. |
@@ -91,5 +92,6 @@ The panel rendered at <https://github.com/SpringTree> comes from
 `profile/README.md` in this repository. That file does not exist yet, so no
 profile panel is shown. It is a separate mechanism from the defaults above.
 
+[ci-workflows]: https://github.com/SpringTree/springtree-ci-workflows
 [docs]: https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file
 

@@ -1,0 +1,60 @@
+# Runs SpringTree's shared supply-chain gates against this repository.
+#
+# The gates themselves live in SpringTree/springtree-ci-workflows; this file
+# only calls them. See that repository's README for what each gate refuses.
+# - This repository has no package.json, so the licences and quarantine gates
+#   report that and pass. secrets and code do the real work here.
+# - This file decides whether the gates run at all, so it is owned by the
+#   security officers in CODEOWNERS.
+#
+name: compliance
+
+on:
+  pull_request:
+    # Required: drafts are skipped below, so this is what runs the gates once
+    # a pull request is marked ready.
+    types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
+    inputs:
+      full-history:
+        description: Scan all history rather than the pull request's range
+        type: boolean
+        # A manual run has no pull request range, so it scans all history
+        # whatever this says; true states what actually happens.
+        default: true
+  schedule:
+    # Monday 05:00 UTC: a full-history scan, which also catches rewritten
+    # history a pull request range scan cannot see.
+    - cron: "0 5 * * 1"
+
+# A second push to the same pull request makes the first run's answer
+# irrelevant, so cancel it rather than paying for both. Never cancel the
+# scheduled run — it has no successor to replace it.
+concurrency:
+  group: compliance-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  supply-chain:
+    # Pull requests are gated only when they:
+    # - come from a branch of this repository, never a fork. This repository is
+    #   public, and the gates would otherwise execute a stranger's code on our
+    #   runners.
+    # - are ready for review. A draft cannot be merged, and skipping it saves
+    #   Actions minutes.
+    if: >-
+      github.event_name != 'pull_request'
+      || (github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft)
+    uses: SpringTree/springtree-ci-workflows/.github/workflows/supply-chain.yml@main
+    # Required even without springtree-labs packages: GitHub checks the called
+    # workflow's permissions before the run starts. Nothing here uses the labs
+    # registry, so the token is never minted.
+    permissions:
+      contents: read
+      id-token: write
+    with:
+      # `github.event.inputs`, not `inputs`: the latter does not exist on a
+      # pull_request event, and referencing it fails the workflow before any
+      # job starts.
+      full-history: ${{ github.event_name == 'schedule' || github.event.inputs.full-history == 'true' }}
+
